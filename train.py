@@ -1,6 +1,7 @@
 import pandas as pd
 import torch
 import datetime
+import os
 from datasets import Dataset
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import (
@@ -8,7 +9,19 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig
 )
-from trl import SFTTrainer, SFTConfig 
+from trl import SFTTrainer, SFTConfig
+from huggingface_hub import login
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Login to Hugging Face using environment variable
+hf_token = os.getenv("HF_TOKEN")
+if hf_token:
+    login(token=hf_token)
+else:
+    print("Warning: HF_TOKEN environment variable not set. You may need to authenticate.")
 
 start_time = datetime.datetime.now()
 print(f"Vrijeme početka: {start_time}")
