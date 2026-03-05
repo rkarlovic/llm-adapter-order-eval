@@ -236,3 +236,7 @@ testiranje.pbs
 .gitignore
 torch.def
 torch.def
+
+
+# Macos DS_Store
+.DS_Store
