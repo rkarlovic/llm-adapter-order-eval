@@ -23,6 +23,7 @@ adapteri_test.*
 /lora-qwen3-checkpoints
 debug*
 *.pbs
+/lora-deepseek-checkpoints-json
 
 # C extensions
 *.so
