@@ -137,27 +137,32 @@ display_columns = ['model_name', 'exact_match_f1', 'exact_match_precision',
 print(results_df[display_columns].to_string(index=False, float_format='%.3f'))
 
 # Plot F1 scores
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['font.serif'] = ['Times New Roman', 'Times', 'DejaVu Serif']
 plt.figure(figsize=(20, 10))
 
 # Plot 1: Exact Match F1 Scores
 plt.subplot(2, 1, 1)
 sns.barplot(data=results_df, x='model_name', y='exact_match_f1', palette='viridis')
-plt.title("F1 Scores per Model", fontsize=20, fontweight='bold')
-plt.ylabel("F1 Score", fontsize=18, fontweight='bold')
+plt.title("F1 Scores per Model", fontsize=24, fontweight='bold')
+plt.ylabel("F1 Score", fontsize=20, fontweight='bold')
 plt.xlabel("")
+y_axis_min = 0.8
 for i, v in enumerate(results_df['exact_match_f1']):
     # plt.text(i, v + 0.01, f'{v:.3f}', ha='center', va='bottom', fontweight='bold')
     height = plt.gca().patches[i].get_height()
+    label_y = y_axis_min + (height - y_axis_min) / 2 if height >= y_axis_min else height / 2
     plt.gca().text(plt.gca().patches[i].get_x() + plt.gca().patches[i].get_width() / 2,
-        height / 2,
+        label_y,
         f'{height:.3f}',
         ha='center',
         va='center', 
-        fontsize=18,
+        fontsize=22,
         fontweight='bold')
 
-plt.xticks(rotation=0, ha='center', fontsize=16, fontweight='bold')
-plt.ylim(0, 1)
+plt.xticks(rotation=0, ha='center', fontsize=20, fontweight='bold')
+plt.yticks(fontsize=20, fontweight='bold')
+plt.ylim(y_axis_min, 1)
 plt.grid(axis='y', alpha=0.3)
 
 # Plot 2: Comparison of different metrics
